@@ -4,7 +4,7 @@ project(clua)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_BUILD_TYPE Debug)
 
-set(SOURCE_FILES src/error.cc src/scanner.cc src/token.cc)
+set(SOURCE_FILES src/error.cc src/scanner.cc src/token.cc src/ast/bin_expr.cc src/ast/ast_printer.cc src/ast/unary_expr.cc src/ast/number_expr.cc src/ast/visitor.cc)
 set(MAIN_FILE src/main.cc)
 set(GLOB_RECURSE HEADER_FILES include/*.h)
 set(TEST_FILES tests/setup.cc tests/scanner_test.cc)

@@ -25,3 +25,8 @@ std::ostream& operator<<(std::ostream& os, Token const& token)
 
     return os;
 }
+
+std::string Token::lexeme() const
+{
+    return this->lexeme_;
+}

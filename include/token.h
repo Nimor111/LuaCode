@@ -3,7 +3,6 @@
 
 #include <iostream>
 
-#include <any>
 #include <string>
 #include <variant>
 
@@ -85,6 +84,8 @@ public:
     Token(TokenType type, std::string lexeme, Literal literal, int line);
     friend std::ostream& operator<<(std::ostream& os, Token const& token);
     bool operator==(Token const& other) const;
+
+    std::string lexeme() const;
 };
 
 #endif /* TOKEN_H */
