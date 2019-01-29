@@ -8,6 +8,7 @@
 
 using Literal = std::variant<std::string, double>;
 
+// Note: Not supporting goto and labels, bit_not
 enum TokenType {
     // single-char
     PLUS,
@@ -17,6 +18,9 @@ enum TokenType {
     MOD,
     POW,
     LEN,
+    BIT_AND,
+    BIT_OR,
+    BIT_XOR,
     GT,
     LT,
     ASSIGN,
@@ -33,11 +37,14 @@ enum TokenType {
     HYPHEN,
 
     // two-char
-    EQ,     // ==
-    DIFF,   // ~=
-    GTE,    // >=
-    LTE,    // <=
-    CONCAT, // ..
+    EQ,          // ==
+    DIFF,        // ~=
+    GTE,         // >=
+    LTE,         // <=
+    CONCAT,      // ..
+    RIGHT_SHIFT, // >>
+    LEFT_SHIFT,  // <<
+    FLOOR_DIV,   // //
 
     // three-char
     RANGE, // ...

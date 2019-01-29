@@ -61,13 +61,19 @@ void Scanner::ScanToken()
         AddToken(MUL);
         break;
     case '/':
-        AddToken(DIV);
+        AddToken(Match('/') ? FLOOR_DIV : DIV);
         break;
     case '%':
         AddToken(MOD);
         break;
     case '^':
         AddToken(POW);
+        break;
+    case '&':
+        AddToken(BIT_AND);
+        break;
+    case '|':
+        AddToken(BIT_OR);
         break;
     case '#':
         AddToken(LEN);
@@ -110,13 +116,29 @@ void Scanner::ScanToken()
         if (Match('=')) {
             AddToken(DIFF);
         } else {
-            Error::MakeError(this->line_, std::string("Unexpected character: ") + this->source_[this->current_]);
+            AddToken(BIT_XOR);
         }
         break;
     case '>':
-        AddToken(Match('=') ? GTE : GT);
+        if (Match('=')) {
+            AddToken(GTE);
+            break;
+        } else if (Match('>')) {
+            AddToken(RIGHT_SHIFT);
+            break;
+        }
+
+        AddToken(GT);
         break;
     case '<':
+        if (Match('=')) {
+            AddToken(LTE);
+            break;
+        } else if (Match('<')) {
+            AddToken(LEFT_SHIFT);
+            break;
+        }
+
         AddToken(Match('=') ? LTE : LT);
         break;
     case '.':
