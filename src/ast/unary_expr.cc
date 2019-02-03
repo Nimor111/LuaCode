@@ -6,6 +6,12 @@ UnaryExpr::UnaryExpr(Token op, Expr* right)
 {
 }
 
+void UnaryExpr::Print()
+{
+    std::cout << this->op_ << std::endl;
+    this->right_->Print();
+}
+
 void UnaryExpr::Accept(Visitor* visitor)
 {
     visitor->VisitUnaryExpr(this);

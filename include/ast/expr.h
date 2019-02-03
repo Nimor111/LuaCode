@@ -7,6 +7,8 @@
 class Expr {
 public:
     virtual void Accept(Visitor* visitor) = 0;
+    virtual void Print() = 0;
+    virtual ~Expr() {};
 };
 
 #endif /* EXPR_H */

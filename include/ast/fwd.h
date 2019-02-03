@@ -5,5 +5,7 @@ class Expr;
 class BinExpr;
 class UnaryExpr;
 class NumberExpr;
+class StringExpr;
+class GroupingExpr;
 
 #endif /* FWD_H */

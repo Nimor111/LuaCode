@@ -8,6 +8,8 @@ public:
     virtual void VisitBinExpr(BinExpr*) = 0;
     virtual void VisitUnaryExpr(UnaryExpr*) = 0;
     virtual void VisitNumberExpr(NumberExpr*) = 0;
+    virtual void VisitStringExpr(StringExpr*) = 0;
+    virtual void VisitGroupingExpr(GroupingExpr*) = 0;
 };
 
 #endif /* VISITOR_H */

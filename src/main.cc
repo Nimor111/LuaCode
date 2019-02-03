@@ -6,6 +6,7 @@
 
 #include "../include/ast/ast_printer.h"
 #include "../include/error.h"
+#include "../include/parser/parser.h"
 #include "../include/scanner.h"
 #include "../include/token.h"
 
@@ -14,9 +15,17 @@ void Run(std::string src)
     Scanner scanner(src);
     std::vector<Token> tokens = scanner.ScanTokens();
 
-    for (auto const& token : tokens) {
-        std::cout << token << std::endl;
+    Parser parser(tokens);
+    auto expr = parser.Parse();
+
+    if (Error::had_error()) {
+        return;
     }
+
+    auto astPrinter = AstPrinter();
+    astPrinter.Print(expr);
+
+    std::cout << std::endl;
 }
 
 void RunFile(std::string filename)
@@ -46,27 +55,14 @@ void RunPrompt()
 
 int main(int argc, char const** argv)
 {
-    /* if (argc > 2) { */
-    /*     std::cout << "Usage: clua [script].lua" << std::endl; */
-    /*     exit(64); */
-    /* } else if (argc == 2) { */
-    /*     RunFile(std::string(argv[1])); */
-    /* } else { */
-    /*     RunPrompt(); */
-    /* } */
-    auto num = NumberExpr(123);
-    auto unary = UnaryExpr(Token(MINUS, "-", NULL, 1), &num);
-    auto bin = BinExpr(
-        &unary,
-        Token(MUL, "*", NULL, 1),
-        &num);
-
-    Expr* expression = &bin;
-
-    auto astPrinter = AstPrinter();
-    astPrinter.Print(expression);
-
-    std::cout << std::endl;
+    if (argc > 2) {
+        std::cout << "Usage: clua [script].lua" << std::endl;
+        exit(64);
+    } else if (argc == 2) {
+        RunFile(std::string(argv[1]));
+    } else {
+        RunPrompt();
+    }
 
     return 0;
 }

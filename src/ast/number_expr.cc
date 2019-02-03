@@ -5,6 +5,10 @@ NumberExpr::NumberExpr(double number)
 {
 }
 
+void NumberExpr::Print() {
+    std::cout << this->number_ << std::endl;
+}
+
 void NumberExpr::Accept(Visitor* visitor)
 {
     visitor->VisitNumberExpr(this);

@@ -23,6 +23,18 @@ void AstPrinter::VisitNumberExpr(NumberExpr* numberExpr)
     parenthesize(std::to_string(numberExpr->number()), exprs);
 }
 
+void AstPrinter::VisitStringExpr(StringExpr* stringExpr)
+{
+    std::vector<Expr*> exprs;
+    parenthesize(stringExpr->value(), exprs);
+}
+
+void AstPrinter::VisitGroupingExpr(GroupingExpr* groupingExpr)
+{
+    std::vector<Expr*> exprs = { groupingExpr->Expr() };
+    parenthesize("group", exprs);
+}
+
 void AstPrinter::parenthesize(std::string lexeme, std::vector<Expr*> exprs)
 {
     std::cout << "(" << lexeme;

@@ -1,6 +1,7 @@
 #ifndef ERROR_H
 #define ERROR_H
 
+#include "token.h"
 #include <iostream>
 #include <string>
 
@@ -14,6 +15,7 @@ public:
     static void set_had_error(bool);
     static bool had_error();
     static void MakeError(int, std::string);
+    static void MakeError(Token, std::string);
 };
 
 #endif /* ERROR_H */

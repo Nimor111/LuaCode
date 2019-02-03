@@ -12,6 +12,7 @@ private:
 public:
     BinExpr(Expr*, Token, Expr*);
     void Accept(Visitor* visitor) override;
+    void Print() override;
     Expr* left() const;
     Expr* right() const;
     Token op() const;

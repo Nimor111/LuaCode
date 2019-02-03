@@ -11,6 +11,7 @@ private:
 public:
     UnaryExpr(Token, Expr*);
     void Accept(Visitor* visitor) override;
+    void Print() override;
     Expr* right() const;
     Token op() const;
 };

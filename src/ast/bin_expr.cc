@@ -7,6 +7,12 @@ BinExpr::BinExpr(Expr* left, Token op, Expr* right)
 {
 }
 
+void BinExpr::Print() {
+    this->left_->Print();
+    std::cout << this->op_ << std::endl;
+    this->right_->Print();
+}
+
 void BinExpr::Accept(Visitor* visitor)
 {
     visitor->VisitBinExpr(this);

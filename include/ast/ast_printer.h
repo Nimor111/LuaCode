@@ -2,7 +2,9 @@
 #define AST_PRINTER_H
 
 #include "bin_expr.h"
+#include "grouping_expr.h"
 #include "number_expr.h"
+#include "string_expr.h"
 #include "unary_expr.h"
 #include <cstdarg>
 #include <iostream>
@@ -17,6 +19,8 @@ public:
     void VisitBinExpr(BinExpr*) override;
     void VisitUnaryExpr(UnaryExpr*) override;
     void VisitNumberExpr(NumberExpr*) override;
+    void VisitStringExpr(StringExpr*) override;
+    void VisitGroupingExpr(GroupingExpr*) override;
     void Print(Expr*);
 };
 

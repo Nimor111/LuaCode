@@ -17,6 +17,15 @@ void Error::MakeError(int line, std::string message)
     Error::Report(line, "", message);
 }
 
+void Error::MakeError(Token token, std::string message)
+{
+    if (token.type() == T_EOF) {
+        Error::Report(token.line(), "at end", message);
+    } else {
+        Error::Report(token.line(), std::string("at '") + token.lexeme() + std::string("'"), message);
+    }
+}
+
 void Error::Report(int line, std::string location, std::string message)
 {
     std::cerr << "[line " << line << "] Error " << location << ": " << message << std::endl;

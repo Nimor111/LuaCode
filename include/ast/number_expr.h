@@ -10,6 +10,7 @@ private:
 public:
     NumberExpr(double);
     void Accept(Visitor* visitor) override;
+    void Print() override;
     double number() const;
 };
 

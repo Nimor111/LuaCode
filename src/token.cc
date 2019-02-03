@@ -30,3 +30,17 @@ std::string Token::lexeme() const
 {
     return this->lexeme_;
 }
+
+TokenType Token::type() const
+{
+    return this->type_;
+}
+
+Literal Token::literal() const
+{
+    return this->literal_;
+}
+
+int Token::line() const {
+    return this->line_;
+}
