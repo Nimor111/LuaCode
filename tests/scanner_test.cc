@@ -113,4 +113,25 @@ TEST_CASE("Scanner", "[scanner]")
         auto tokens = scanner.ScanTokens();
         REQUIRE(tokens == expectedTokens);
     }
+
+    SECTION("Single quote and multi quote strings")
+    {
+        std::ifstream file("tests/fixtures/strings.lua");
+
+        std::stringstream buffer;
+        buffer << file.rdbuf();
+
+        Scanner scanner(buffer.str());
+
+        std::vector<Token> expectedTokens = {
+            Token(STRING, "'this'", "this", 1),
+            Token(STRING, "\"this\"", "this", 2),
+            Token(STRING, "'\\\"this\\\"'", "\\\"this\\\"", 3),
+            Token(STRING, "\"'this'\"", "'this'", 4),
+            Token(T_EOF, "", "", 5)
+        };
+
+        auto tokens = scanner.ScanTokens();
+        REQUIRE(tokens == expectedTokens);
+    }
 }

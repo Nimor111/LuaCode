@@ -166,8 +166,11 @@ void Scanner::ScanToken()
     case '\n':
         this->line_++;
         break;
+    case '\'':
+        String(true);
+        break;
     case '"':
-        String();
+        String(false);
         break;
     default:
         if (isdigit(c)) {
@@ -223,9 +226,15 @@ std::string Scanner::Peek(int num)
     return this->source_.substr(this->current_, num + 1);
 }
 
-void Scanner::String()
+void Scanner::String(bool single)
 {
-    while (Peek() != std::string(1, '"') && !End()) {
+    /*
+       Lua supports strings with single and double quotes
+       The single flag determines which symbol we will be looking for.
+    */
+
+    auto delim = single ? '\'' : '"';
+    while (Peek() != std::string(1, delim) && !End()) {
         Advance();
     }
 
@@ -234,7 +243,7 @@ void Scanner::String()
         return;
     }
 
-    // The terminating ".
+    // The terminating " or '.
     Advance();
 
     // Trim quotes

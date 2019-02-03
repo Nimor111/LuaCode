@@ -27,7 +27,7 @@ private:
     void AddToken(TokenType, Literal);
     bool Match(char);
     std::string Peek(int = 0);
-    void String();
+    void String(bool);
     void MultiString();
     void Number();
     bool Alpha(char c);
