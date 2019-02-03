@@ -7,5 +7,6 @@ class UnaryExpr;
 class NumberExpr;
 class StringExpr;
 class GroupingExpr;
+class LiteralExpr;
 
 #endif /* FWD_H */

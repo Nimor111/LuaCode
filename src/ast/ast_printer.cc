@@ -1,5 +1,10 @@
 #include "../../include/ast/ast_printer.h"
 
+inline const std::string boolToString(int value)
+{
+    return value == -1 ? "nil" : value == 0 ? "false" : "true";
+}
+
 void AstPrinter::Print(Expr* expr)
 {
     expr->Accept(this);
@@ -33,6 +38,12 @@ void AstPrinter::VisitGroupingExpr(GroupingExpr* groupingExpr)
 {
     std::vector<Expr*> exprs = { groupingExpr->Expr() };
     parenthesize("group", exprs);
+}
+
+void AstPrinter::VisitLiteralExpr(LiteralExpr* literalExpr)
+{
+    std::vector<Expr*> exprs;
+    parenthesize(boolToString(literalExpr->value()), exprs);
 }
 
 void AstPrinter::parenthesize(std::string lexeme, std::vector<Expr*> exprs)

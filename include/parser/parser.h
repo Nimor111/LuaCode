@@ -7,6 +7,7 @@
 #include "../ast/number_expr.h"
 #include "../ast/string_expr.h"
 #include "../ast/unary_expr.h"
+#include "../ast/literal_expr.h"
 #include "../error.h"
 #include "../errors/parse_error.h"
 #include "../scanner/token.h"

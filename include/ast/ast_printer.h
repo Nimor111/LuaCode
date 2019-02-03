@@ -3,6 +3,7 @@
 
 #include "bin_expr.h"
 #include "grouping_expr.h"
+#include "literal_expr.h"
 #include "number_expr.h"
 #include "string_expr.h"
 #include "unary_expr.h"
@@ -20,6 +21,7 @@ public:
     void VisitNumberExpr(NumberExpr*) override;
     void VisitStringExpr(StringExpr*) override;
     void VisitGroupingExpr(GroupingExpr*) override;
+    void VisitLiteralExpr(LiteralExpr*) override;
     void Print(Expr*);
 };
 

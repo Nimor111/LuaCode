@@ -10,6 +10,7 @@ public:
     virtual void VisitNumberExpr(NumberExpr*) = 0;
     virtual void VisitStringExpr(StringExpr*) = 0;
     virtual void VisitGroupingExpr(GroupingExpr*) = 0;
+    virtual void VisitLiteralExpr(LiteralExpr*) = 0;
 };
 
 #endif /* VISITOR_H */

@@ -91,8 +91,8 @@ public:
     Token(TokenType type, std::string lexeme, Literal literal, int line);
     friend std::ostream& operator<<(std::ostream& os, Token const& token);
     bool operator==(Token const& other) const;
-    TokenType type() const;
 
+    TokenType type() const;
     std::string lexeme() const;
     Literal literal() const;
     int line() const;

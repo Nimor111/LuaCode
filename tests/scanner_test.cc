@@ -5,17 +5,15 @@
 
 #include "../include/catch.hpp"
 #include "../include/scanner/scanner.h"
+#include "test_util.cc"
 
 TEST_CASE("Scanner", "[scanner]")
 {
     SECTION("Basic idents")
     {
-        std::ifstream file("tests/fixtures/basic.lua");
+        auto contents = readFixture("tests/fixtures/basic.lua");
 
-        std::stringstream buffer;
-        buffer << file.rdbuf();
-
-        Scanner scanner(buffer.str());
+        Scanner scanner(contents);
         std::vector<Token> expectedTokens {
             Token(IDENT, "a", "", 2),
             Token(ASSIGN, "=", "", 2),
@@ -33,12 +31,9 @@ TEST_CASE("Scanner", "[scanner]")
 
     SECTION("Operators")
     {
-        std::ifstream file("tests/fixtures/operators.lua");
+        auto contents = readFixture("tests/fixtures/operators.lua");
 
-        std::stringstream buffer;
-        buffer << file.rdbuf();
-
-        Scanner scanner(buffer.str());
+        Scanner scanner(contents);
 
         std::vector<Token> expectedTokens {
             Token(NUMBER, "1", 1, 1),
@@ -87,12 +82,9 @@ TEST_CASE("Scanner", "[scanner]")
 
     SECTION("Function definition")
     {
-        std::ifstream file("tests/fixtures/function.lua");
+        auto contents = readFixture("tests/fixtures/function.lua");
 
-        std::stringstream buffer;
-        buffer << file.rdbuf();
-
-        Scanner scanner(buffer.str());
+        Scanner scanner(contents);
 
         std::vector<Token> expectedTokens {
             Token(FUNCTION, "function", "", 1),
@@ -116,12 +108,9 @@ TEST_CASE("Scanner", "[scanner]")
 
     SECTION("Single quote and multi quote strings")
     {
-        std::ifstream file("tests/fixtures/strings.lua");
+        auto contents = readFixture("tests/fixtures/strings.lua");
 
-        std::stringstream buffer;
-        buffer << file.rdbuf();
-
-        Scanner scanner(buffer.str());
+        Scanner scanner(contents);
 
         std::vector<Token> expectedTokens = {
             Token(STRING, "'this'", "this", 1),

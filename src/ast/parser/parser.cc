@@ -185,7 +185,25 @@ Expr* Parser::Pow()
 
 Expr* Parser::Primary()
 {
-    std::vector<TokenType> tokens = { NUMBER };
+    std::vector<TokenType> tokens = { FALSE };
+    if (Match(tokens)) {
+        auto e = new LiteralExpr(0);
+        return e;
+    }
+
+    tokens = { TRUE };
+    if (Match(tokens)) {
+        auto e = new LiteralExpr(1);
+        return e;
+    }
+
+    tokens = { NIL };
+    if (Match(tokens)) {
+        auto e = new LiteralExpr(-1);
+        return e;
+    }
+
+    tokens = { NUMBER };
     if (Match(tokens)) {
         auto e = new NumberExpr(std::get<double>(Previous().literal()));
         return e;

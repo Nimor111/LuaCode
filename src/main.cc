@@ -15,6 +15,10 @@ void Run(std::string src)
     Scanner scanner(src);
     std::vector<Token> tokens = scanner.ScanTokens();
 
+    for (auto const& token : tokens) {
+        std::cout << token << std::endl;
+    }
+
     Parser parser(tokens);
     auto expr = parser.Parse();
 
