@@ -6,7 +6,7 @@
 #include "../include/ast/ast_printer.h"
 #include "../include/catch.hpp"
 #include "../include/parser/parser.h"
-#include "../include/scanner.h"
+#include "../include/scanner/scanner.h"
 
 TEST_CASE("Parser", "[parser]")
 {

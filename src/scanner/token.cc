@@ -1,4 +1,4 @@
-#include "../include/token.h"
+#include "../include/scanner/token.h"
 
 Token::Token(TokenType type, std::string lexeme, Literal literal, int line)
     : type_(type)

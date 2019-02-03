@@ -7,8 +7,8 @@
 #include "../include/ast/ast_printer.h"
 #include "../include/error.h"
 #include "../include/parser/parser.h"
-#include "../include/scanner.h"
-#include "../include/token.h"
+#include "../include/scanner/scanner.h"
+#include "../include/scanner/token.h"
 
 void Run(std::string src)
 {

@@ -1,4 +1,4 @@
-#include "../include/scanner.h"
+#include "../include/scanner/scanner.h"
 
 std::map<std::string, TokenType> Scanner::keywords_ = {
     { "and", AND },

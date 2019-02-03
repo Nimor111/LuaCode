@@ -1,7 +1,7 @@
 #ifndef ERROR_H
 #define ERROR_H
 
-#include "token.h"
+#include "./scanner/token.h"
 #include <iostream>
 #include <string>
 

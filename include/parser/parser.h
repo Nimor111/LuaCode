@@ -9,7 +9,7 @@
 #include "../ast/unary_expr.h"
 #include "../error.h"
 #include "../errors/parse_error.h"
-#include "../token.h"
+#include "../scanner/token.h"
 #include <vector>
 
 /**

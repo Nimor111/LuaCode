@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "../include/catch.hpp"
-#include "../include/scanner.h"
+#include "../include/scanner/scanner.h"
 
 TEST_CASE("Scanner", "[scanner]")
 {

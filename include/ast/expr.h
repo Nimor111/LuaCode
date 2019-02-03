@@ -1,7 +1,7 @@
 #ifndef EXPR_H
 #define EXPR_H
 
-#include "../token.h"
+#include "../scanner/token.h"
 #include "visitor.h"
 
 class Expr {
