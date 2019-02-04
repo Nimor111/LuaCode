@@ -25,6 +25,7 @@ void Run(std::string src)
     auto astPrinter = AstPrinter();
     for (auto const& stmt : stmts) {
         astPrinter.Print(stmt);
+        std::cout << "\n";
     }
 
     std::cout << std::endl;

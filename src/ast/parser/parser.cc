@@ -11,13 +11,34 @@ std::vector<Stmt*> Parser::Parse()
     try {
         std::vector<Stmt*> statements;
         while (!End()) {
-            statements.push_back(Statement());
+            statements.push_back(Declaration());
         }
 
         return statements;
     } catch (ParseError const& e) {
         return std::vector<Stmt*>();
     }
+}
+
+Stmt* Parser::Declaration()
+{
+    if (Match(std::vector<TokenType> { IDENT })) {
+        return VarDeclaration();
+    }
+
+    return Statement();
+}
+
+Stmt* Parser::VarDeclaration()
+{
+    auto name = Previous();
+
+    Expr* value = nullptr;
+    if (Match(std::vector<TokenType> { ASSIGN })) {
+        value = Expression();
+    }
+
+    return new VarStmt(name, value);
 }
 
 Stmt* Parser::Statement()
@@ -204,40 +225,37 @@ Expr* Parser::Pow()
 
 Expr* Parser::Primary()
 {
-    std::vector<TokenType> tokens = { FALSE };
-    if (Match(tokens)) {
+    if (Match(std::vector<TokenType> { FALSE })) {
         auto e = new LiteralExpr(0);
         return e;
     }
 
-    tokens = { TRUE };
-    if (Match(tokens)) {
+    if (Match(std::vector<TokenType> { TRUE })) {
         auto e = new LiteralExpr(1);
         return e;
     }
 
-    tokens = { NIL };
-    if (Match(tokens)) {
+    if (Match(std::vector<TokenType> { NIL })) {
         auto e = new LiteralExpr(-1);
         return e;
     }
 
-    tokens = { NUMBER };
-    if (Match(tokens)) {
+    if (Match(std::vector<TokenType> { NUMBER })) {
         auto e = new NumberExpr(std::get<double>(Previous().literal()));
         return e;
     }
 
-    tokens = { STRING };
-
-    if (Match(tokens)) {
+    if (Match(std::vector<TokenType> { STRING })) {
         auto e = new StringExpr(std::get<std::string>(Previous().literal()));
         return e;
     }
 
-    tokens = { LEFT_PAREN };
+    if (Match(std::vector<TokenType> { IDENT })) {
+        auto e = new VarExpr(Previous());
+        return e;
+    }
 
-    if (Match(tokens)) {
+    if (Match(std::vector<TokenType> { LEFT_PAREN })) {
         auto e = Expression();
         Consume(RIGHT_PAREN, "Expect ')' after expression.");
         auto ge = new GroupingExpr(e);

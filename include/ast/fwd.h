@@ -8,5 +8,6 @@ class NumberExpr;
 class StringExpr;
 class GroupingExpr;
 class LiteralExpr;
+class VarExpr;
 
 #endif /* FWD_H */

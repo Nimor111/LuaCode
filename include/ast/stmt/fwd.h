@@ -3,5 +3,6 @@
 
 class Stmt;
 class ExprStmt;
+class VarStmt;
 
 #endif /* STMT_FWD_H */

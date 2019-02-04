@@ -11,6 +11,7 @@ public:
     virtual void VisitStringExpr(StringExpr*) = 0;
     virtual void VisitGroupingExpr(GroupingExpr*) = 0;
     virtual void VisitLiteralExpr(LiteralExpr*) = 0;
+    virtual void VisitVarExpr(VarExpr*) = 0;
 };
 
 #endif /* VISITOR_H */

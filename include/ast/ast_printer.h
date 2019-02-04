@@ -6,8 +6,10 @@
 #include "literal_expr.h"
 #include "number_expr.h"
 #include "stmt/expr_stmt.h"
+#include "stmt/var_stmt.h"
 #include "string_expr.h"
 #include "unary_expr.h"
+#include "var_expr.h"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -23,8 +25,10 @@ public:
     void VisitStringExpr(StringExpr*) override;
     void VisitGroupingExpr(GroupingExpr*) override;
     void VisitLiteralExpr(LiteralExpr*) override;
+    void VisitVarExpr(VarExpr*) override;
 
     void VisitExprStmt(ExprStmt*) override;
+    void VisitVarStmt(VarStmt*) override;
     void Print(Stmt*);
     void PrintExpr(Expr*);
 };

@@ -10,7 +10,8 @@ void AstPrinter::Print(Stmt* exprStmt)
     exprStmt->Accept(this);
 }
 
-void AstPrinter::PrintExpr(Expr* expr) {
+void AstPrinter::PrintExpr(Expr* expr)
+{
     expr->Accept(this);
 }
 
@@ -50,9 +51,21 @@ void AstPrinter::VisitLiteralExpr(LiteralExpr* literalExpr)
     parenthesize(boolToString(literalExpr->value()), exprs);
 }
 
+void AstPrinter::VisitVarExpr(VarExpr* varExpr)
+{
+    std::vector<Expr*> exprs;
+    parenthesize(varExpr->name().lexeme(), exprs);
+}
+
 void AstPrinter::VisitExprStmt(ExprStmt* exprStmt)
 {
     PrintExpr(exprStmt->expr());
+}
+
+void AstPrinter::VisitVarStmt(VarStmt* varStmt)
+{
+    parenthesize(varStmt->name().lexeme(), std::vector<Expr*>());
+    PrintExpr(varStmt->value());
 }
 
 void AstPrinter::parenthesize(std::string lexeme, std::vector<Expr*> exprs)

@@ -8,6 +8,7 @@ public:
     class Visitor {
     public:
         virtual void VisitExprStmt(ExprStmt*) = 0;
+        virtual void VisitVarStmt(VarStmt*) = 0;
     };
 
     virtual void Accept(Stmt::Visitor* visitor) = 0;

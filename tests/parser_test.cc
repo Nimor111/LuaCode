@@ -64,4 +64,36 @@ TEST_CASE("Parser", "[parser]")
         // reset std::cout
         std::cout.rdbuf(old);
     }
+
+    SECTION("Variables")
+    {
+        auto contents = readFixture("tests/fixtures/var.lua");
+
+        Scanner scanner(contents);
+        auto tokens = scanner.ScanTokens();
+
+        Parser parser(tokens);
+        auto exprs = parser.Parse();
+
+        std::stringstream buff;
+        auto* old = std::cout.rdbuf(buff.rdbuf());
+
+        auto astPrinter = AstPrinter();
+        astPrinter.Print(exprs[0]);
+
+        CHECK(buff.str() == "(a)(* (5.000000) (6.000000))");
+
+        buff = std::stringstream();
+        astPrinter.Print(exprs[1]);
+
+        CHECK(buff.str() == "(b)(+ (6.000000) (* (7.000000) (3.000000)))");
+
+        buff = std::stringstream();
+        astPrinter.Print(exprs[2]);
+
+        CHECK(buff.str() == "(c)(and (true) (false))");
+
+        // reset std::cout
+        std::cout.rdbuf(old);
+    }
 }

@@ -6,7 +6,9 @@
 #include "../ast/grouping_expr.h"
 #include "../ast/literal_expr.h"
 #include "../ast/number_expr.h"
+#include "../ast/var_expr.h"
 #include "../ast/stmt/expr_stmt.h"
+#include "../ast/stmt/var_stmt.h"
 #include "../ast/string_expr.h"
 #include "../ast/unary_expr.h"
 #include "../error.h"
@@ -51,6 +53,8 @@ private:
     Expr* Primary();
 
     Stmt* Statement();
+    Stmt* Declaration();
+    Stmt* VarDeclaration();
     Stmt* ExpressionStatement();
 
     bool Match(std::vector<TokenType> const&);
