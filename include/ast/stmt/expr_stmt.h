@@ -1,7 +1,7 @@
 #ifndef EXPR_STMT_H
 #define EXPR_STMT_H
 
-#include "../expr.h"
+#include "../expr/expr.h"
 #include "stmt.h"
 
 class ExprStmt : public Stmt {

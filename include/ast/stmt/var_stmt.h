@@ -1,7 +1,7 @@
 #ifndef VAR_STMT_H
 #define VAR_STMT_H
 
-#include "../expr.h"
+#include "../expr/expr.h"
 #include "stmt.h"
 
 class VarStmt : public Stmt {

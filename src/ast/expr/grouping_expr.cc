@@ -1,4 +1,4 @@
-#include "../../include/ast/grouping_expr.h"
+#include "../../../include/ast/expr/grouping_expr.h"
 
 GroupingExpr::GroupingExpr(class Expr* expr)
     : expr_(expr)

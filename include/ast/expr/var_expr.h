@@ -1,7 +1,7 @@
 #ifndef VAR_EXPR_H
 #define VAR_EXPR_H
 
-#include "../scanner/token.h"
+#include "../../scanner/token.h"
 #include "expr.h"
 
 class VarExpr : public Expr {

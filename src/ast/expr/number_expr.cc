@@ -1,4 +1,4 @@
-#include "../../include/ast/number_expr.h"
+#include "../../../include/ast/expr/number_expr.h"
 
 NumberExpr::NumberExpr(double number)
     : number_(number)

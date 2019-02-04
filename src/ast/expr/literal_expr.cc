@@ -1,4 +1,4 @@
-#include "../../include/ast/literal_expr.h"
+#include "../../../include/ast/expr/literal_expr.h"
 
 LiteralExpr::LiteralExpr(int value)
     : value_(value)

@@ -1,15 +1,15 @@
 #ifndef AST_PRINTER_H
 #define AST_PRINTER_H
 
-#include "bin_expr.h"
-#include "grouping_expr.h"
-#include "literal_expr.h"
-#include "number_expr.h"
+#include "expr/bin_expr.h"
+#include "expr/grouping_expr.h"
+#include "expr/literal_expr.h"
+#include "expr/number_expr.h"
+#include "expr/string_expr.h"
+#include "expr/unary_expr.h"
+#include "expr/var_expr.h"
 #include "stmt/expr_stmt.h"
 #include "stmt/var_stmt.h"
-#include "string_expr.h"
-#include "unary_expr.h"
-#include "var_expr.h"
 #include <iostream>
 #include <string>
 #include <vector>

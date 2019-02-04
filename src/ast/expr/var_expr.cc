@@ -1,4 +1,4 @@
-#include "../../include/ast/var_expr.h"
+#include "../../../include/ast/expr/var_expr.h"
 
 VarExpr::VarExpr(Token name)
     : name_(name)
