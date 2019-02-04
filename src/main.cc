@@ -15,19 +15,17 @@ void Run(std::string src)
     Scanner scanner(src);
     std::vector<Token> tokens = scanner.ScanTokens();
 
-    for (auto const& token : tokens) {
-        std::cout << token << std::endl;
-    }
-
     Parser parser(tokens);
-    auto expr = parser.Parse();
+    auto stmts = parser.Parse();
 
     if (Error::had_error()) {
         return;
     }
 
     auto astPrinter = AstPrinter();
-    astPrinter.Print(expr);
+    for (auto const& stmt : stmts) {
+        astPrinter.Print(stmt);
+    }
 
     std::cout << std::endl;
 }

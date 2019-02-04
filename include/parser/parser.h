@@ -4,10 +4,11 @@
 #include "../ast/bin_expr.h"
 #include "../ast/expr.h"
 #include "../ast/grouping_expr.h"
+#include "../ast/literal_expr.h"
 #include "../ast/number_expr.h"
+#include "../ast/stmt/expr_stmt.h"
 #include "../ast/string_expr.h"
 #include "../ast/unary_expr.h"
-#include "../ast/literal_expr.h"
 #include "../error.h"
 #include "../errors/parse_error.h"
 #include "../scanner/token.h"
@@ -49,6 +50,9 @@ private:
     Expr* Pow();
     Expr* Primary();
 
+    Stmt* Statement();
+    Stmt* ExpressionStatement();
+
     bool Match(std::vector<TokenType> const&);
     Token Previous();
     Token Advance();
@@ -61,7 +65,7 @@ private:
 
 public:
     Parser(std::vector<Token>);
-    Expr* Parse();
+    std::vector<Stmt*> Parse();
 };
 
 #endif /* PARSER_H */

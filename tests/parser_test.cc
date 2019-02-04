@@ -11,7 +11,7 @@
 
 TEST_CASE("Parser", "[parser]")
 {
-    SECTION("Expression")
+    SECTION("ExpressionStatement")
     {
         auto contents = readFixture("tests/fixtures/expr.lua");
 
@@ -19,13 +19,13 @@ TEST_CASE("Parser", "[parser]")
         auto tokens = scanner.ScanTokens();
 
         Parser parser(tokens);
-        auto expr = parser.Parse();
+        auto exprs = parser.Parse();
 
         std::stringstream buff;
         auto* old = std::cout.rdbuf(buff.rdbuf());
 
         auto astPrinter = AstPrinter();
-        astPrinter.Print(expr);
+        astPrinter.Print(exprs[0]);
 
         CHECK(buff.str() == "(- (+ (1.000000) (2.000000)) (* (3.000000) (4.000000)))");
 
@@ -41,13 +41,13 @@ TEST_CASE("Parser", "[parser]")
         auto tokens = scanner.ScanTokens();
 
         Parser parser(tokens);
-        auto expr = parser.Parse();
+        auto exprs = parser.Parse();
 
         std::stringstream buff;
         auto* old = std::cout.rdbuf(buff.rdbuf());
 
         auto astPrinter = AstPrinter();
-        astPrinter.Print(expr);
+        astPrinter.Print(exprs[0]);
 
         CHECK(buff.str() == "(and (and (true) (false)) (nil))");
 

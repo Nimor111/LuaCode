@@ -5,13 +5,14 @@
 #include "grouping_expr.h"
 #include "literal_expr.h"
 #include "number_expr.h"
+#include "stmt/expr_stmt.h"
 #include "string_expr.h"
 #include "unary_expr.h"
 #include <iostream>
 #include <string>
 #include <vector>
 
-class AstPrinter : public Visitor {
+class AstPrinter : public Visitor, public Stmt::Visitor {
 private:
     void parenthesize(std::string, std::vector<Expr*>);
 
@@ -22,7 +23,10 @@ public:
     void VisitStringExpr(StringExpr*) override;
     void VisitGroupingExpr(GroupingExpr*) override;
     void VisitLiteralExpr(LiteralExpr*) override;
-    void Print(Expr*);
+
+    void VisitExprStmt(ExprStmt*) override;
+    void Print(Stmt*);
+    void PrintExpr(Expr*);
 };
 
 #endif /* AST_PRINTER_H */

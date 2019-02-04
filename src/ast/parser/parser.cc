@@ -6,13 +6,32 @@ Parser::Parser(std::vector<Token> tokens)
 {
 }
 
-Expr* Parser::Parse()
+std::vector<Stmt*> Parser::Parse()
 {
     try {
-        return Expression();
+        std::vector<Stmt*> statements;
+        while (!End()) {
+            statements.push_back(Statement());
+        }
+
+        return statements;
     } catch (ParseError const& e) {
-        return nullptr;
+        return std::vector<Stmt*>();
     }
+}
+
+Stmt* Parser::Statement()
+{
+    return ExpressionStatement();
+}
+
+Stmt* Parser::ExpressionStatement()
+{
+    auto expr = Expression();
+
+    auto s = new ExprStmt(expr);
+
+    return s;
 }
 
 Expr* Parser::Expression()

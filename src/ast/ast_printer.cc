@@ -5,8 +5,12 @@ inline const std::string boolToString(int value)
     return value == -1 ? "nil" : value == 0 ? "false" : "true";
 }
 
-void AstPrinter::Print(Expr* expr)
+void AstPrinter::Print(Stmt* exprStmt)
 {
+    exprStmt->Accept(this);
+}
+
+void AstPrinter::PrintExpr(Expr* expr) {
     expr->Accept(this);
 }
 
@@ -44,6 +48,11 @@ void AstPrinter::VisitLiteralExpr(LiteralExpr* literalExpr)
 {
     std::vector<Expr*> exprs;
     parenthesize(boolToString(literalExpr->value()), exprs);
+}
+
+void AstPrinter::VisitExprStmt(ExprStmt* exprStmt)
+{
+    PrintExpr(exprStmt->expr());
 }
 
 void AstPrinter::parenthesize(std::string lexeme, std::vector<Expr*> exprs)
