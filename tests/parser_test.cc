@@ -11,7 +11,7 @@
 
 TEST_CASE("Parser", "[parser]")
 {
-    SECTION("ExpressionStatement")
+    SECTION("Expressions")
     {
         auto contents = readFixture("tests/fixtures/expr.lua");
 
@@ -28,6 +28,16 @@ TEST_CASE("Parser", "[parser]")
         astPrinter.Print(exprs[0]);
 
         CHECK(buff.str() == "(- (+ (1.000000) (2.000000)) (* (3.000000) (4.000000)))");
+
+        buff = std::stringstream();
+        astPrinter.Print(exprs[1]);
+
+        CHECK(buff.str() == "(+ (3.000000) (4.000000))");
+
+        buff = std::stringstream();
+        astPrinter.Print(exprs[2]);
+
+        CHECK(buff.str() == "(- (* (5.000000) (6.000000)) (2.000000))");
 
         // reset std::cout
         std::cout.rdbuf(old);

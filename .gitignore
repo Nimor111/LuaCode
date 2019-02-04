@@ -13,3 +13,6 @@ build/
 
 # local tests
 playground/
+
+# ctags
+tags
