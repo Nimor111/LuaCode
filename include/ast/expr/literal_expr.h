@@ -2,7 +2,6 @@
 #define LITERAL_EXPR_H
 
 #include "./expr.h"
-#include "./visitor.h"
 
 class LiteralExpr : public Expr {
 private:
@@ -10,7 +9,7 @@ private:
 
 public:
     LiteralExpr(int);
-    void Accept(Visitor* visitor) override;
+    void Accept(Expr::Visitor* visitor) override;
     void Print() override;
 
     int value() const;

@@ -14,7 +14,7 @@
 #include <string>
 #include <vector>
 
-class AstPrinter : public Visitor, public Stmt::Visitor {
+class AstPrinter : public Expr::Visitor, public Stmt::Visitor {
 private:
     void parenthesize(std::string, std::vector<Expr*>);
 

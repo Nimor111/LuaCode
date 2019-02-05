@@ -10,7 +10,7 @@ private:
 
 public:
     StringExpr(std::string);
-    void Accept(Visitor* visitor) override;
+    void Accept(Expr::Visitor* visitor) override;
     void Print() override;
     std::string value() const;
 };

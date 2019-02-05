@@ -9,7 +9,7 @@ private:
 
 public:
     NumberExpr(double);
-    void Accept(Visitor* visitor) override;
+    void Accept(Expr::Visitor* visitor) override;
     void Print() override;
     double number() const;
 };
