@@ -9,7 +9,7 @@ private:
 
 public:
     LiteralExpr(int);
-    void Accept(Expr::Visitor* visitor) override;
+    void Accept(Expr::Visitor*) override;
     void Print() override;
 
     int value() const;

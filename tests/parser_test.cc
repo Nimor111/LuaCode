@@ -27,17 +27,17 @@ TEST_CASE("Parser", "[parser]")
         auto astPrinter = AstPrinter();
         astPrinter.Print(exprs[0]);
 
-        CHECK(buff.str() == "(- (+ (1.000000) (2.000000)) (* (3.000000) (4.000000)))");
+        CHECK(buff.str() == "{\"-\": [{\"+\": [1, 2]}, {\"*\": [3, 4]}]}");
 
         buff = std::stringstream();
         astPrinter.Print(exprs[1]);
 
-        CHECK(buff.str() == "(+ (3.000000) (4.000000))");
+        CHECK(buff.str() == "{\"+\": [3, 4]}");
 
         buff = std::stringstream();
         astPrinter.Print(exprs[2]);
 
-        CHECK(buff.str() == "(- (* (5.000000) (6.000000)) (2.000000))");
+        CHECK(buff.str() == "{\"-\": [{\"*\": [5, 6]}, 2]}");
 
         // reset std::cout
         std::cout.rdbuf(old);
@@ -59,7 +59,7 @@ TEST_CASE("Parser", "[parser]")
         auto astPrinter = AstPrinter();
         astPrinter.Print(exprs[0]);
 
-        CHECK(buff.str() == "(and (and (true) (false)) (nil))");
+        CHECK(buff.str() == "{\"and\": [{\"and\": [\"true\", \"false\"]}, \"nil\"]}");
 
         // reset std::cout
         std::cout.rdbuf(old);
@@ -81,17 +81,17 @@ TEST_CASE("Parser", "[parser]")
         auto astPrinter = AstPrinter();
         astPrinter.Print(exprs[0]);
 
-        CHECK(buff.str() == "(a)(* (5.000000) (6.000000))");
+        CHECK(buff.str() == "{\"a\": {\"*\": [5, 6]}}");
 
         buff = std::stringstream();
         astPrinter.Print(exprs[1]);
 
-        CHECK(buff.str() == "(b)(+ (6.000000) (* (7.000000) (3.000000)))");
+        CHECK(buff.str() == "{\"b\": {\"+\": [6, {\"*\": [7, 3]}]}}");
 
         buff = std::stringstream();
         astPrinter.Print(exprs[2]);
 
-        CHECK(buff.str() == "(c)(and (true) (false))");
+        CHECK(buff.str() == "{\"c\": {\"and\": [\"true\", \"false\"]}}");
 
         // reset std::cout
         std::cout.rdbuf(old);

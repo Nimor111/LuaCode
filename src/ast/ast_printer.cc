@@ -18,43 +18,54 @@ void AstPrinter::PrintExpr(Expr* expr)
 void AstPrinter::VisitBinExpr(BinExpr* binExpr)
 {
     std::vector<Expr*> exprs = { binExpr->left(), binExpr->right() };
-    parenthesize(binExpr->op().lexeme(), exprs);
+    std::cout << "{\"" << binExpr->op().lexeme() << "\": ";
+    std::cout << "[";
+    bool first = true;
+    for (auto const& expr : exprs) {
+        if (!first) {
+            std::cout << ", ";
+        }
+        expr->Accept(this);
+        first = false;
+    }
+    std::cout << "]";
+    std::cout << "}";
 }
 
 void AstPrinter::VisitUnaryExpr(UnaryExpr* unaryExpr)
 {
-    std::vector<Expr*> exprs = { unaryExpr->right() };
-    parenthesize(unaryExpr->op().lexeme(), exprs);
+    std::cout << "{\"" << unaryExpr->op().lexeme() << "\": ";
+    std::cout << "[";
+    unaryExpr->right()->Accept(this);
+    std::cout << "]";
+    std::cout << "}";
 }
 
 void AstPrinter::VisitNumberExpr(NumberExpr* numberExpr)
 {
-    std::vector<Expr*> exprs;
-    parenthesize(std::to_string(numberExpr->number()), exprs);
+    std::cout << numberExpr->number();
 }
 
 void AstPrinter::VisitStringExpr(StringExpr* stringExpr)
 {
-    std::vector<Expr*> exprs;
-    parenthesize(stringExpr->value(), exprs);
+    std::cout << "\"" << stringExpr->value() << "\"";
 }
 
 void AstPrinter::VisitGroupingExpr(GroupingExpr* groupingExpr)
 {
-    std::vector<Expr*> exprs = { groupingExpr->Expr() };
-    parenthesize("group", exprs);
+    std::cout << "{\"group\": ";
+    PrintExpr(groupingExpr->Expr());
+    std::cout << "}";
 }
 
 void AstPrinter::VisitLiteralExpr(LiteralExpr* literalExpr)
 {
-    std::vector<Expr*> exprs;
-    parenthesize(boolToString(literalExpr->value()), exprs);
+    std::cout << "\"" << boolToString(literalExpr->value()) << "\"";
 }
 
 void AstPrinter::VisitVarExpr(VarExpr* varExpr)
 {
-    std::vector<Expr*> exprs;
-    parenthesize(varExpr->name().lexeme(), exprs);
+    std::cout << "\"" << varExpr->name().lexeme() << "\"";
 }
 
 void AstPrinter::VisitExprStmt(ExprStmt* exprStmt)
@@ -64,17 +75,7 @@ void AstPrinter::VisitExprStmt(ExprStmt* exprStmt)
 
 void AstPrinter::VisitVarStmt(VarStmt* varStmt)
 {
-    parenthesize(varStmt->name().lexeme(), std::vector<Expr*>());
+    std::cout << "{\"" << varStmt->name().lexeme() << "\": ";
     PrintExpr(varStmt->value());
-}
-
-void AstPrinter::parenthesize(std::string lexeme, std::vector<Expr*> exprs)
-{
-    std::cout << "(" << lexeme;
-    for (auto const& expr : exprs) {
-        std::cout << " ";
-        expr->Accept(this);
-    }
-
-    std::cout << ")";
+    std::cout << "}";
 }

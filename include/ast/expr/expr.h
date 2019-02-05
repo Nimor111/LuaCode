@@ -17,7 +17,7 @@ public:
         virtual void VisitVarExpr(VarExpr*) = 0;
     };
 
-    virtual void Accept(Expr::Visitor* visitor) = 0;
+    virtual void Accept(Expr::Visitor*) = 0;
     virtual void Print() = 0;
     virtual ~Expr() {};
 };

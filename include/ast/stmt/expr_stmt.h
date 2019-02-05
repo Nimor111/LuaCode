@@ -11,7 +11,7 @@ private:
 public:
     ExprStmt(Expr*);
 
-    void Accept(Stmt::Visitor* visitor) override;
+    void Accept(Stmt::Visitor*) override;
     Expr* expr();
 };
 

@@ -11,7 +11,7 @@ public:
         virtual void VisitVarStmt(VarStmt*) = 0;
     };
 
-    virtual void Accept(Stmt::Visitor* visitor) = 0;
+    virtual void Accept(Stmt::Visitor*) = 0;
 };
 
 #endif /* STMT_H */

@@ -11,7 +11,7 @@ private:
 public:
     VarExpr(Token);
 
-    virtual void Accept(Expr::Visitor* visitor) override;
+    virtual void Accept(Expr::Visitor*) override;
     virtual void Print() override;
 
     Token name() const;

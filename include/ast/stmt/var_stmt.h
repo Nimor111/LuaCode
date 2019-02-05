@@ -12,7 +12,7 @@ private:
 public:
     VarStmt(Token, Expr*);
 
-    virtual void Accept(Stmt::Visitor* visitor) override;
+    virtual void Accept(Stmt::Visitor*) override;
 
     Expr* value() const;
     Token name() const;

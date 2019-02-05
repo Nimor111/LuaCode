@@ -11,7 +11,7 @@ private:
 
 public:
     BinExpr(Expr*, Token, Expr*);
-    void Accept(Expr::Visitor* visitor) override;
+    void Accept(Expr::Visitor*) override;
     void Print() override;
     Expr* left() const;
     Expr* right() const;
