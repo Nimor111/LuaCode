@@ -27,17 +27,8 @@ TEST_CASE("Parser", "[parser]")
         auto astPrinter = AstPrinter();
         astPrinter.Print(exprs[0]);
 
-        CHECK(buff.str() == "{\"-\": [{\"+\": [1, 2]}, {\"*\": [3, 4]}]}");
-
-        buff = std::stringstream();
-        astPrinter.Print(exprs[1]);
-
-        CHECK(buff.str() == "{\"+\": [3, 4]}");
-
-        buff = std::stringstream();
-        astPrinter.Print(exprs[2]);
-
-        CHECK(buff.str() == "{\"-\": [{\"*\": [5, 6]}, 2]}");
+        std::string expected = "{\"type\": \"BinaryExpression\", \"operator\": \"-\", \"args\": [{\"type\": \"BinaryExpression\", \"operator\": \"+\", \"args\": [{\"type\": \"NumberLiteral\", \"value\": 1}, {\"type\": \"NumberLiteral\", \"value\": 2}]}, {\"type\": \"BinaryExpression\", \"operator\": \"*\", \"args\": [{\"type\": \"NumberLiteral\", \"value\": 3}, {\"type\": \"NumberLiteral\", \"value\": 4}]}]}";
+        CHECK(buff.str() == expected);
 
         // reset std::cout
         std::cout.rdbuf(old);
@@ -59,7 +50,8 @@ TEST_CASE("Parser", "[parser]")
         auto astPrinter = AstPrinter();
         astPrinter.Print(exprs[0]);
 
-        CHECK(buff.str() == "{\"and\": [{\"and\": [\"true\", \"false\"]}, \"nil\"]}");
+        std::string expected = "{\"type\": \"BinaryExpression\", \"operator\": \"and\", \"args\": [{\"type\": \"BinaryExpression\", \"operator\": \"and\", \"args\": [{\"type\": \"KeyLiteral\", \"value\": \"true\"}, {\"type\": \"KeyLiteral\", \"value\": \"false\"}]}, {\"type\": \"KeyLiteral\", \"value\": \"nil\"}]}";
+        CHECK(buff.str() == expected);
 
         // reset std::cout
         std::cout.rdbuf(old);
@@ -81,17 +73,20 @@ TEST_CASE("Parser", "[parser]")
         auto astPrinter = AstPrinter();
         astPrinter.Print(exprs[0]);
 
-        CHECK(buff.str() == "{\"a\": {\"*\": [5, 6]}}");
+        std::string expected = "{\"type\": \"VarDeclaration\", \"name\": \"a\", \"value\": {\"type\": \"BinaryExpression\", \"operator\": \"*\", \"args\": [{\"type\": \"NumberLiteral\", \"value\": 5}, {\"type\": \"NumberLiteral\", \"value\": 6}]}}";
+        CHECK(buff.str() == expected);
 
         buff = std::stringstream();
         astPrinter.Print(exprs[1]);
 
-        CHECK(buff.str() == "{\"b\": {\"+\": [6, {\"*\": [7, 3]}]}}");
+        expected = "{\"type\": \"VarDeclaration\", \"name\": \"b\", \"value\": {\"type\": \"BinaryExpression\", \"operator\": \"+\", \"args\": [{\"type\": \"NumberLiteral\", \"value\": 6}, {\"type\": \"BinaryExpression\", \"operator\": \"*\", \"args\": [{\"type\": \"NumberLiteral\", \"value\": 7}, {\"type\": \"NumberLiteral\", \"value\": 3}]}]}}";
+        CHECK(buff.str() == expected);
 
         buff = std::stringstream();
         astPrinter.Print(exprs[2]);
 
-        CHECK(buff.str() == "{\"c\": {\"and\": [\"true\", \"false\"]}}");
+        expected = "{\"type\": \"VarDeclaration\", \"name\": \"c\", \"value\": {\"type\": \"BinaryExpression\", \"operator\": \"and\", \"args\": [{\"type\": \"KeyLiteral\", \"value\": \"true\"}, {\"type\": \"KeyLiteral\", \"value\": \"false\"}]}}";
+        CHECK(buff.str() == expected);
 
         // reset std::cout
         std::cout.rdbuf(old);

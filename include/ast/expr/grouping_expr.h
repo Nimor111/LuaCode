@@ -9,7 +9,7 @@ private:
 
 public:
     GroupingExpr(Expr*);
-    void Accept(Visitor* visitor) override;
+    void Accept(Expr::Visitor*) override;
     void Print() override;
     Expr* Expr();
 };
