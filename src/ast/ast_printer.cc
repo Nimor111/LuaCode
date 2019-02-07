@@ -72,7 +72,7 @@ void AstPrinter::VisitLiteralExpr(LiteralExpr* literalExpr)
 
 void AstPrinter::VisitVarExpr(VarExpr* varExpr)
 {
-    std::cout << "{\"type\": \"Varname\", "
+    std::cout << "{\"type\": \"VarName\", "
               << "\"value\": "
               << "\"" << varExpr->name().lexeme() << "\"}";
 }

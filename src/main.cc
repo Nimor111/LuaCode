@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 
+#include "../include/analyzer/rules.h"
 #include "../include/ast/ast_printer.h"
 #include "../include/error.h"
 #include "../include/parser/parser.h"
@@ -26,11 +27,16 @@ void Run(std::string src)
         return;
     }
 
-    auto astPrinter = AstPrinter();
     for (auto const& stmt : stmts) {
-        astPrinter.Print(stmt);
-        std::cout << "\n";
+        UndefinedVariables(stmt);
+        UnusedVariables(stmt);
     }
+
+    /* auto astPrinter = AstPrinter(); */
+    /* for (auto const& stmt : stmts) { */
+    /*     astPrinter.Print(stmt); */
+    /*     std::cout << "\n"; */
+    /* } */
 
     std::cout << std::endl;
 }
