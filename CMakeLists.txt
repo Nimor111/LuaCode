@@ -16,9 +16,11 @@ find_package(Catch2 REQUIRED)
 add_executable(tests ${SOURCE_FILES} ${HEADER_FILES} ${TEST_FILES})
 
 target_include_directories(tests PUBLIC include)
-target_link_libraries(tests Catch2::Catch2)
+target_link_libraries(tests PUBLIC Catch2::Catch2)
+
+find_package(nlohmann_json REQUIRED)
 
 add_executable(clua ${SOURCE_FILES} ${HEADER_FILES} ${MAIN_FILE})
+target_link_libraries(clua PUBLIC nlohmann_json)
 
 target_include_directories(clua PUBLIC include)
-

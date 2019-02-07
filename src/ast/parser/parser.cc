@@ -22,8 +22,10 @@ std::vector<Stmt*> Parser::Parse()
 
 Stmt* Parser::Declaration()
 {
-    if (Match(std::vector<TokenType> { IDENT })) {
+    if (Match(std::vector<TokenType> { IDENT }) && Match(std::vector<TokenType> { ASSIGN })) {
         return VarDeclaration();
+    } else {
+        this->at_--;
     }
 
     return Statement();
@@ -33,10 +35,7 @@ Stmt* Parser::VarDeclaration()
 {
     auto name = Previous();
 
-    Expr* value = nullptr;
-    if (Match(std::vector<TokenType> { ASSIGN })) {
-        value = Expression();
-    }
+    auto value = Expression();
 
     return new VarStmt(name, value);
 }
@@ -63,7 +62,7 @@ Expr* Parser::Expression()
 Expr* Parser::Or()
 {
     auto expr = And();
-    std::vector<TokenType> tokens = { AND };
+    std::vector<TokenType> tokens = { OR };
 
     while (Match(tokens)) {
         auto op = Previous();
@@ -77,7 +76,7 @@ Expr* Parser::Or()
 Expr* Parser::And()
 {
     auto expr = Comparison();
-    std::vector<TokenType> tokens = { LT, GT, LTE, GTE, DIFF, EQ };
+    std::vector<TokenType> tokens = { AND };
 
     while (Match(tokens)) {
         auto op = Previous();
@@ -92,7 +91,7 @@ Expr* Parser::Comparison()
 {
     auto expr = BitOr();
 
-    std::vector<TokenType> tokens = { BIT_OR };
+    std::vector<TokenType> tokens = { LT, GT, LTE, GTE, DIFF, EQ };
 
     while (Match(tokens)) {
         auto op = Previous();
@@ -107,7 +106,7 @@ Expr* Parser::BitOr()
 {
     auto expr = BitAnd();
 
-    std::vector<TokenType> tokens = { BIT_AND };
+    std::vector<TokenType> tokens = { BIT_OR };
 
     while (Match(tokens)) {
         auto op = Previous();
@@ -180,9 +179,24 @@ Expr* Parser::AddSub()
 
 Expr* Parser::MulDivMod()
 {
-    auto expr = Unary();
+    auto expr = Pow();
 
     std::vector<TokenType> tokens = { MUL, DIV, FLOOR_DIV, MOD };
+
+    while (Match(tokens)) {
+        auto op = Previous();
+        auto right = Pow();
+        expr = new BinExpr(expr, op, right);
+    }
+
+    return expr;
+}
+
+Expr* Parser::Pow()
+{
+    auto expr = Unary();
+
+    std::vector<TokenType> tokens = { POW };
 
     while (Match(tokens)) {
         auto op = Previous();
@@ -197,30 +211,14 @@ Expr* Parser::Unary()
 {
     // TODO scanner handle minus
     std::vector<TokenType> tokens = { NOT, LEN };
-
     if (Match(tokens)) {
         auto op = Previous();
-        auto right = Pow();
+        auto right = Unary();
         auto u = new UnaryExpr(op, right);
         return u;
     }
 
     return Primary();
-}
-
-Expr* Parser::Pow()
-{
-    auto expr = Primary();
-
-    std::vector<TokenType> tokens = { POW };
-
-    while (Match(tokens)) {
-        auto op = Previous();
-        auto right = Primary();
-        expr = new BinExpr(expr, op, right);
-    }
-
-    return expr;
 }
 
 Expr* Parser::Primary()
