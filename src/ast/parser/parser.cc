@@ -24,7 +24,10 @@ Stmt* Parser::Declaration()
 {
     if (Match(std::vector<TokenType> { IDENT }) && Match(std::vector<TokenType> { ASSIGN })) {
         return VarDeclaration();
-    } else {
+    }
+
+    // if we've consumed an ident but it's not a var decl
+    if (this->at_) {
         this->at_--;
     }
 
@@ -33,7 +36,12 @@ Stmt* Parser::Declaration()
 
 Stmt* Parser::VarDeclaration()
 {
+    this->at_--;
+    // Get name
     auto name = Previous();
+
+    // consume '='
+    Advance();
 
     auto value = Expression();
 
