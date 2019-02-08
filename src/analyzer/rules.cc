@@ -46,13 +46,13 @@ void FindVarExpressions(json object, vector<std::string>& v)
     }
 }
 
-void UndefinedVariables(Stmt* program)
+vector<std::string> UndefinedVariables(vector<Stmt*>& program)
 {
     std::stringstream buff;
     auto* old = std::cout.rdbuf(buff.rdbuf());
 
     auto astPrinter = AstPrinter();
-    astPrinter.Print(program);
+    astPrinter.PrintProgram(program);
 
     std::cout.rdbuf(old);
 
@@ -63,21 +63,25 @@ void UndefinedVariables(Stmt* program)
 
     vector<std::string> varExpressions;
     FindVarExpressions(object, varExpressions);
+
+    vector<std::string> errors;
 
     for (auto const& it : varExpressions) {
         if (std::find(declarations.begin(), declarations.end(), it) == declarations.end()) {
-            std::cout << it << " not declared!" << std::endl;
+            errors.push_back(it + " not declared!");
         }
     }
+
+    return errors;
 }
 
-void UnusedVariables(Stmt* program)
+vector<std::string> UnusedVariables(vector<Stmt*>& program)
 {
     std::stringstream buff;
     auto* old = std::cout.rdbuf(buff.rdbuf());
 
     auto astPrinter = AstPrinter();
-    astPrinter.Print(program);
+    astPrinter.PrintProgram(program);
 
     std::cout.rdbuf(old);
 
@@ -89,9 +93,13 @@ void UnusedVariables(Stmt* program)
     vector<std::string> varExpressions;
     FindVarExpressions(object, varExpressions);
 
+    vector<std::string> errors;
+
     for (auto const& it : declarations) {
         if (std::find(varExpressions.begin(), varExpressions.end(), it) == varExpressions.end()) {
-            std::cout << it << " not used!" << std::endl;
+            errors.push_back(it + " not used!");
         }
     }
+
+    return errors;
 }

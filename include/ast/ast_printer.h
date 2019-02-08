@@ -31,7 +31,8 @@ public:
     void VisitVarStmt(VarStmt*) override;
     void Print(Stmt*);
     void PrintExpr(Expr*);
-    void PrintBinExpr(BinExpr*);
+
+    void PrintProgram(std::vector<Stmt*> const& );
 };
 
 #endif /* AST_PRINTER_H */

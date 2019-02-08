@@ -19,7 +19,7 @@ using vector = std::vector<T>;
 void FindDeclarations(json, vector<std::string>&);
 void FindVarExpressions(json, vector<std::string>&);
 
-void UnusedVariables(Stmt*);
-void UndefinedVariables(Stmt*);
+vector<std::string> UnusedVariables(vector<Stmt*>&);
+vector<std::string> UndefinedVariables(vector<Stmt*>&);
 
 #endif

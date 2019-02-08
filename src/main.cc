@@ -27,9 +27,15 @@ void Run(std::string src)
         return;
     }
 
-    for (auto const& stmt : stmts) {
-        UndefinedVariables(stmt);
-        UnusedVariables(stmt);
+    auto undefined = UndefinedVariables(stmts);
+    auto unused = UnusedVariables(stmts);
+
+    for(auto const& it : undefined) {
+        std::cout << it << std::endl;
+    }
+
+    for(auto const& it : unused) {
+        std::cout << it << std::endl;
     }
 
     /* auto astPrinter = AstPrinter(); */

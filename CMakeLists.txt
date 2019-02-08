@@ -7,7 +7,7 @@ set(CMAKE_BUILD_TYPE Debug)
 set(SOURCE_FILES src/error.cc src/scanner/scanner.cc src/scanner/token.cc src/ast/expr/bin_expr.cc src/ast/ast_printer.cc src/ast/expr/unary_expr.cc src/ast/expr/number_expr.cc src/ast/expr/string_expr.cc src/ast/expr/grouping_expr.cc src/ast/expr/literal_expr.cc src/ast/expr/var_expr.cc src/ast/parser/parser.cc src/ast/stmt/expr_stmt.cc src/ast/stmt/var_stmt.cc src/analyzer/rules.cc)
 set(MAIN_FILE src/main.cc)
 set(GLOB_RECURSE HEADER_FILES include/*.h)
-set(TEST_FILES tests/setup.cc tests/scanner_test.cc tests/parser_test.cc tests/test_util.cc)
+set(TEST_FILES tests/setup.cc tests/scanner_test.cc tests/parser_test.cc tests/test_util.cc tests/analyzer_test.cc)
 
 set(dir ${CMAKE_CURRENT_SOURCE_DIR})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${dir}/build)

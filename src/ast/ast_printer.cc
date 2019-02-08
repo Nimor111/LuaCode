@@ -90,3 +90,17 @@ void AstPrinter::VisitVarStmt(VarStmt* varStmt)
     PrintExpr(varStmt->value());
     std::cout << "}";
 }
+
+void AstPrinter::PrintProgram(std::vector<Stmt*> const& program)
+{
+    std::cout << "[";
+    bool first = true;
+    for (auto const& stmt : program) {
+        if (!first) {
+            std::cout << ", " << std::endl;
+        }
+        Print(stmt);
+        first = false;
+    }
+    std::cout << "]" << std::endl;
+}
